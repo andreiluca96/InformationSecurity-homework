@@ -1,0 +1,33 @@
+Exercitiul 3 - Documentatie:
+
+1) Mediul de lucru utilizat + utilizare:
+	Pentru realizarea acestui exercitiu am folosit limbajul Java impreuna cu bibliotecile standard de criptare.
+
+	Pentru modificarea plainTextului trebuie modificata variabila plainText din clasa ActorA.
+
+	Rularea programului se va realiza astfel:
+	- pornirea clasei ActorKM
+	- pornirea clasei ActorB
+	- pornirea clasei ActorA
+	- introducerea modului de criptare pt actorulA => vizualizarea rezultatelor
+
+2) Modul de rezolvare a exercitiului:
+	Modul de comunicare a nodurilor se face in retea utilziand protocolul TCP, astfel actorulKM va dechide 2 porturi pentru ascultare, iar actorulB va dechide un singur port pentru ascultare.
+
+	Pasi:
+	- ActorulA va initia conexiunea catre actorulB deschizand socket-ul si scriind modul de comunicare in socket.
+	- ActorulA deschide conexiunea catre actorulKM deschizand scoket-ul si scriind de asemenea modul de comunicare(pentru a primi cheia)
+	- ActorulKM cripteaza cheia utilizand Cypher-ul din java(block) si cheia cunoscuta de toti actorii K3, si trimite catre actorulA cheia criptata.
+	- ActorulB va trimite de asemenea modul de criptare, iar actorulKM va repeta procesul de mai sus.
+	- ActorulB trimite actorului A mesajul READY
+	- ActorulA cripteaza plaintextul utilizand functiile scrise in program
+	- ActorulB decripteaza mesajul si il afiseaza pe ecran.
+
+	Pentru criptarea mesajului, mesajul completat cu spatii pana la multiplu de 16 bytes, iar apoi este impartit in blocuri de cate 16 bytes utilizand expresii regulate.
+	Lista de blocuri este parcursa block cu block si este criptata specific in functie de modul de criptare(ECB sau CBC).
+
+	Mesajul este apoi primit de actorulB care aplica procesul invers.
+
+3) Modul de tesare:		
+	Am testat cu o serie de input-uri: "Ana are mere dulci." + variatii, o serie de chei("aaaaaaaaa" + variatii) si cu ambele moduri de criptare.
+

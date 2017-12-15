@@ -16,3 +16,4 @@ Exercitiul 2 - Documentatie:
 
 3) Modul de tesare:
 	Am testat cu input-ul: "Ana are mere dulci." si "Ana are mere dulcy." => 32 caractere diferite pt SHA256 si 16 caractere diferite pt MD5.
+

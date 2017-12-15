@@ -15,11 +15,11 @@
 char *plainTextFileName = "plaintext.txt";
 char *cryptoTextFileName = "cryptotext.txt";
 
-int cryptoMode = ECB_MODE;
+int cryptoMode = CBC_MODE;
 char *initVector = "\x01\x02\x03\x04\x05\x06\x07\x08\x09\x0a\x0b\x0c\x0d\x0e\x0f";
 
-// char *encryptionKey = "\x6D\x65\x64\x69\x61\x6E\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20";
-char *encryptionKey = "meat            ";
+char *encryptionKey = "\x6D\x65\x64\x69\x61\x6E\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20";
+// char *encryptionKey = "meat            ";
 
 char *plainText;
 char *cryptoText;
