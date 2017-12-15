@@ -1,0 +1,18 @@
+Exercitiul 2 - Documentatie:
+
+1) Mediul de lucru utilizat + utilizare:
+	Pentru realizarea acestui exercitiu am folosit limbajul ANSI-C(C standard) impreuna cu biblioteca specificata in documentul aferent temei(OpenSSL library).
+	Pentru operatiile de hashing am folosit primitivele din libraria de mai sus.
+
+	Pentru a schimba input-ul criptat, trebuie modficate fisierele file1.txt si respectiv file2.txt.
+
+	Pentru rularea programului va trebui sa executati urmatoarele comenzi de la linia de comanda:
+	- make
+	- ./out (afiseaza pe ecran si in fisiere continutul cerut)
+
+2) Modul de rezolvare a exercitiului:
+	- am creat un fisier ex2.c in care citesc continutul fisierelor file1.txt si file2.txt, apoi aplic pe rand primitivele din libraria OpenSSL(SHA si MD5) pentru fiecare continut,
+	iar apoi parcurgand fiecare sir de caractere rezultat, numar caracterele diferite.
+
+3) Modul de tesare:
+	Am testat cu input-ul: "Ana are mere dulci." si "Ana are mere dulcy." => 32 caractere diferite pt SHA256 si 16 caractere diferite pt MD5.

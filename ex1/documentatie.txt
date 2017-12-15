@@ -1,0 +1,26 @@
+Exercitiul 1 - Documentatie:
+
+1) Mediul de lucru utilizat + utilizare:
+	Pentru realizarea acestui exercitiu am folosit limbajul ANSI-C(C standard) impreuna cu biblioteca specificata in documentul aferent temei(OpenSSL library).
+	Pentru criptare am folosit API-ul EVP cu cypher-ele aferente. 
+
+	Pentru a schimba cheia de criptare este necesar sa modificati variabila encryptionKey din codul fisierului encrypt_file.c.
+	Pentru a schimba vectorul de initializare este necesar sa modificati variabila initVector din codul fisierului encrypt_file.c.
+	Pentru a schimba modul de criptare este necesar sa modificati variabila cryptoMode(cu una din valorile definite cu #define) din codul fisierului encrypt_file.c.
+	Pentru a schimba continutul fisierului plaintext este de ajuns sa modificati fisierul plaintext.txt.
+
+	Pentru rularea programului va trebui sa executati urmatoarele comenzi de la linia de comanda:
+	- make
+	- ./encrypt (cripteaza fisierul asociat)
+	- ./out (gaseste cheia si o afiseaza pe ecran)
+
+2) Modul de rezolvare a exercitiului:
+	Pentru rezolvarea exercitiului am urmat urmatoarele etape:
+	- am creat un fisier encrypt_file.c care in functie de modul de criptare specificat in constantele de la inceputul programului si de key/initVector cripteaza
+	fisierul plaintext.txt si afiseaza continutul criptat in fisierul cryptotext.txt
+	- in a doua faza am creat un nou fisier ex1.c care va lua ca intrare criptotextul(din cryptotext.txt) si va parcurge linie cu linie fisierul dictionary.txt,
+	adaugand padding pana la 16 bytes si va incerca sa decripteze textul respectiv pana cand plaintextul va fi egal cu textul decriptat, moment in care programul se
+	opreste si afiseaza cheia folosita.
+
+3) Modul de tesare:
+	Am testat cu o serie de plaintexte: "Ana are mere dulci.", "Marcel merge la facultate.", impreuna cu o serie de chei ("median", "meat") si cu toate modurile de criptare.

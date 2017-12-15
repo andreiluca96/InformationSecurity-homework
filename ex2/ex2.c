@@ -3,6 +3,9 @@
 #include <string.h>
 #include <openssl/sha.h>
 #include <openssl/md5.h>
+#include <openssl/conf.h>
+#include <openssl/evp.h>
+#include <openssl/err.h>
 
 
 char *INPUT_FILE_NAME1 = "file1.txt";
@@ -23,7 +26,11 @@ char *applySHA256(char *content);
 char *applyMD5(char *content);
 int getNumberOfCharacterDifferences(char *input1, char *input2, int inputSize);
 
-void main() {
+void digest_message_SHA256(const unsigned char *message, size_t message_len, unsigned char **digest, unsigned int *digest_len);
+void digest_message_MD5(const unsigned char *message, size_t message_len, unsigned char **digest, unsigned int *digest_len);
+void handleErrors(void);
+
+void main(int argc, char **argv) {
 	FILE *file1 = fopen(INPUT_FILE_NAME1, "r");
 	FILE *file2 = fopen(INPUT_FILE_NAME2, "r");
 	FILE *file1SHA256 = fopen(SHA256_OUTPUT_FILE1, "w");
@@ -60,10 +67,15 @@ void main() {
 
 	printf("MD5 for InputFile1:%s\n", md5Result1);
 	printf("MD5 for InputFile2:%s\n", md5Result2);
-	printf("SHA256 diffrences: %d\n", differences);
+	printf("MD5 diffrences: %d\n", differences);
 
 	fprintf(file1MD5, "%s %d\n", md5Result1, differences);
 	fprintf(file2MD5, "%s %d\n", md5Result2, differences);
+}
+
+void handleErrors(void) {
+	ERR_print_errors_fp(stderr);
+	abort();
 }
 
 char *applySHA256(char *content) {
@@ -91,3 +103,48 @@ int getNumberOfCharacterDifferences(char *input1, char *input2, int inputSize) {
 
 	return diffrences;
 }
+
+// void digest_message_SHA256(const unsigned char *message, size_t message_len, unsigned char **digest, unsigned int *digest_len)
+// {
+// 	EVP_MD_CTX *mdctx;
+
+// 	if((mdctx = EVP_MD_CTX_create()) == NULL)
+// 		handleErrors();
+
+// 	if(1 != EVP_DigestInit_ex(mdctx, EVP_sha256(), NULL))
+// 		handleErrors();
+
+// 	if(1 != EVP_DigestUpdate(mdctx, message, message_len))
+// 		handleErrors();
+
+// 	if((*digest = (unsigned char *)OPENSSL_malloc(EVP_MD_size(EVP_sha256()))) == NULL)
+// 		handleErrors();
+
+// 	if(1 != EVP_DigestFinal_ex(mdctx, *digest, digest_len))
+// 		handleErrors();
+
+// 	EVP_MD_CTX_destroy(mdctx);
+// }
+
+// void digest_message_MD5(const unsigned char *message, size_t message_len, unsigned char **digest, unsigned int *digest_len)
+// {
+// 	EVP_MD_CTX *mdctx;
+
+// 	if((mdctx = EVP_MD_CTX_create()) == NULL)
+// 		handleErrors();
+
+// 	if(1 != EVP_DigestInit_ex(mdctx, EVP_md5(), NULL))
+// 		handleErrors();
+
+// 	if(1 != EVP_DigestUpdate(mdctx, message, message_len))
+// 		handleErrors();
+
+// 	if((*digest = (unsigned char *)OPENSSL_malloc(EVP_MD_size(EVP_md5()))) == NULL)
+// 		handleErrors();
+
+// 	if(1 != EVP_DigestFinal_ex(mdctx, *digest, digest_len))
+// 		handleErrors();
+
+// 	EVP_MD_CTX_destroy(mdctx);
+// }
+
